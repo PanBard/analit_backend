@@ -17,3 +17,15 @@ CREATE TABLE `zobaczymy`.`script_flow` (
 (id , symbol, f1 , f2 , f3 , f4 , f5 , f6 , f7)
  VALUES 
  (2,'as','sd','sd','sd','sd','sd','sd','sd');
+
+
+ CREATE TABLE `zobaczymy`.`analysis` (
+  `idanalysis` INT NOT NULL,
+  `f1` VARCHAR(45) NULL,
+  `f2` VARCHAR(45) NULL,
+  `f3` VARCHAR(45) NULL,
+  `f4` VARCHAR(45) NULL,
+  `f5` VARCHAR(45) NULL,
+  `f6` VARCHAR(45) NULL,
+  `f7` VARCHAR(45) NULL,
+  PRIMARY KEY (`idanalysis`));

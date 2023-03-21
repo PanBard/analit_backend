@@ -66,10 +66,39 @@ app.listen(numer_portu, ()=>{
 
 
 //wstawianie danych do bazy danych
-app.post("/api/insert", (req,res)=>{
+app.post("/api/insert_detected_imades", (req,res)=>{
+    // console.log(req)
+     const id = req.body.id 
+     const image = req.body.image
+    
+ 
+     const sqlINSERT =  'INSERT INTO detected_images (iddetected_images,detected_imagescol) VALUES (?,?)';
+ 
+     db.query(sqlINSERT, [id,image], (err,result)=>{console.log(err)})
+ });
+
+//wstawianie danych do bazy danych
+app.post("/api/insert_script_flow", (req,res)=>{
+    console.log(req)
+     const id = req.body.id 
+     const symbol = req.body.symbol
+     const f1 = req.body.f1
+     const f2 = req.body.f2
+     const f3 = req.body.f3
+     const f4 = req.body.f4
+     const f5 = req.body.f5
+     const f6 = req.body.f6
+     const f7 = req.body.f7
+ 
+     const sqlINSERT =  'INSERT INTO script_flow (id,symbol,f1,f2,f3,f4,f5,f6,f7) VALUES (?,?,?,?,?,?,?,?,?)';
+ 
+     db.query(sqlINSERT, [id,symbol,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{console.log(err)})
+ });
+
+
+app.post("/api/insert_analysis", (req,res)=>{
    console.log(req)
     const id = req.body.id 
-    const symbol = req.body.symbol
     const f1 = req.body.f1
     const f2 = req.body.f2
     const f3 = req.body.f3
@@ -78,9 +107,9 @@ app.post("/api/insert", (req,res)=>{
     const f6 = req.body.f6
     const f7 = req.body.f7
 
-    const sqlINSERT =  'INSERT INTO script_flow (id,symbol,f1,f2,f3,f4,f5,f6,f7) VALUES (?,?,?,?,?,?,?,?,?)';
+    const sqlINSERT =  'INSERT INTO analysis (idanalysis,f1,f2,f3,f4,f5,f6,f7) VALUES (?,?,?,?,?,?,?,?)';
 
-    db.query(sqlINSERT, [id,symbol,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{console.log(err)})
+    db.query(sqlINSERT, [id,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{console.log(err)})
 });
 
 //pobieranie danych z bazy danych
@@ -109,9 +138,34 @@ app.get("/api/get/moje", (req,res)=>{
     
 });
 
+app.get("/api/get/detected_imades", (req,res)=>{
+    const sqlINSERTe =  "SELECT * FROM detected_images";
+    
+    db.query(sqlINSERTe, (err,result)=>{
+    
+        res.send(result)
+        console.log(result)
+        if (err) console.log(err);
+    })
+    
+});
+
+
 
 app.get("/api/get/script_flow", (req,res)=>{
     const sqlINSERTe =  "SELECT * FROM 	script_flow";
+    
+    db.query(sqlINSERTe, (err,result)=>{
+    
+        res.send(result)
+        console.log(result)
+        if (err) console.log(err);
+    })
+    
+});
+
+app.get("/api/get/analysis", (req,res)=>{
+    const sqlINSERTe =  "SELECT * FROM 	analysis";
     
     db.query(sqlINSERTe, (err,result)=>{
     
@@ -148,7 +202,7 @@ app.get("/api/get/all_tables", (req,res)=>{
 
 
 //usuwanie danych z bazy danych
-app.delete("/api/delete/:id", (req,res)=>{
+app.delete("/api/delete_script_flow/:id", (req,res)=>{
     const name = req.params.id
 
     const sqlDELETE =  "DELETE FROM script_flow WHERE id=?";
@@ -159,11 +213,21 @@ app.delete("/api/delete/:id", (req,res)=>{
 });
 
 
+app.delete("/api/delete_analysis/:id", (req,res)=>{
+    const name = req.params.id
+
+    const sqlDELETE =  "DELETE FROM analysis WHERE idanalysis=?";
+
+    db.query(sqlDELETE, name, (err, result)=>{
+       if (err) console.log(err);
+    });
+});
+
 
 // aktualizowanie danych w bazie danych
 
-app.put("/api/update", (req,res)=>{
-    console.log(req)
+app.put("/api/update_script_flow", (req,res)=>{
+    // console.log(req)
     const id = req.body.id 
     const symbol = req.body.symbol
     const f1 = req.body.f1
@@ -175,12 +239,34 @@ app.put("/api/update", (req,res)=>{
     const f7 = req.body.f7
    
     // const sqlDELETE =  "UPDATE script_flow SET ion_name=? WHERE id=?";
-    const sqlDELETE =  "UPDATE script_flow SET (symbol=?,f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=?) WHERE id=?";
+    const sqlDELETE =  "UPDATE script_flow SET symbol=?,f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=? WHERE id=?";
 
     db.query(sqlDELETE, [ symbol,f1,f2,f3,f4,f5,f6,f7,id], (err, result)=>{
+        console.log( symbol,f1,f2,f3,f4,f5,f6,f7,id)
        if (err) console.log(err);
     });
 });
+
+app.put("/api/update_analysis", (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+   
+    // const sqlDELETE =  "UPDATE script_flow SET ion_name=? WHERE id=?";
+    const sqlDELETE =  "UPDATE script_flow SET f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=? WHERE id=?";
+
+    db.query(sqlDELETE, [ f1,f2,f3,f4,f5,f6,f7,id], (err, result)=>{
+        console.log( f1,f2,f3,f4,f5,f6,f7,id)
+       if (err) console.log(err);
+    });
+});
+
 
 
 
