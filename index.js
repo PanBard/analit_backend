@@ -4,19 +4,20 @@ const HOST ='localhost'
 const USER ='zbychu'
 const PASSWORD ='password'
 const DATABASE = 'zobaczymy'
+// const ROUTS = require('.routs.js')  
+// console.log(ROUTS)
+ 
 
 
+import express, { json } from 'express'
+import { createPool } from 'mysql'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import { routs,test } from './routs.js'
 
+console.log(routs()) 
 
-
-const express = require('express');
-const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-// console.log(column_db["columns"]) 
-
-const db = mysql.createPool({    
+const db = createPool({    
     host: HOST,
     user: USER,
     password: PASSWORD,
@@ -28,7 +29,7 @@ const app = express()
 const numer_portu = 4001
 
 app.use(cors())
-app.use(express.json())
+app.use(json())
 // app.use (bodyParser.urlencoded({extended: true})) // zeby cos chodzilo
 
 app.get("/", (req,res)=>{ //req - require , res - response
@@ -106,10 +107,11 @@ app.post("/api/insert_analysis", (req,res)=>{
     const f5 = req.body.f5
     const f6 = req.body.f6
     const f7 = req.body.f7
+    const end = req.body.end
 
-    const sqlINSERT =  'INSERT INTO analysis (idanalysis,f1,f2,f3,f4,f5,f6,f7) VALUES (?,?,?,?,?,?,?,?)';
+    const sqlINSERT =  'INSERT INTO analysis (idanalysis,f1,f2,f3,f4,f5,f6,f7,end) VALUES (?,?,?,?,?,?,?,?,?)';
 
-    db.query(sqlINSERT, [id,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{console.log(err)})
+    db.query(sqlINSERT, [id,f1,f2,f3,f4,f5,f6,f7,end], (err,result)=>{console.log(err)})
 });
 
 //pobieranie danych z bazy danych
@@ -257,12 +259,13 @@ app.put("/api/update_analysis", (req,res)=>{
     const f5 = req.body.f5
     const f6 = req.body.f6
     const f7 = req.body.f7
+    const end = req.body.end
    
     // const sqlDELETE =  "UPDATE script_flow SET ion_name=? WHERE id=?";
-    const sqlDELETE =  "UPDATE script_flow SET f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=? WHERE id=?";
+    const sqlDELETE =  "UPDATE script_flow SET f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=?, end=? WHERE id=?";
 
-    db.query(sqlDELETE, [ f1,f2,f3,f4,f5,f6,f7,id], (err, result)=>{
-        console.log( f1,f2,f3,f4,f5,f6,f7,id)
+    db.query(sqlDELETE, [ f1,f2,f3,f4,f5,f6,f7,id,end], (err, result)=>{
+        // console.log( f1,f2,f3,f4,f5,f6,f7,id)
        if (err) console.log(err);
     });
 });
