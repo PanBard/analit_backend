@@ -71,11 +71,12 @@ app.post("/api/insert_detected_imades", (req,res)=>{
     // console.log(req)
      const id = req.body.id 
      const image = req.body.image
+     const name = req.body.name
     
  
-     const sqlINSERT =  'INSERT INTO detected_images (iddetected_images,detected_imagescol) VALUES (?,?)';
+     const sqlINSERT =  'INSERT INTO detected_images (iddetected_images,name,detected_imagescol) VALUES (?,?,?)';
  
-     db.query(sqlINSERT, [id,image], (err,result)=>{console.log(err)})
+     db.query(sqlINSERT, [id,name,image], (err,result)=>{console.log(err)})
  });
 
 //wstawianie danych do bazy danych
@@ -141,12 +142,12 @@ app.get("/api/get/moje", (req,res)=>{
 });
 
 app.get("/api/get/detected_imades", (req,res)=>{
-    const sqlINSERTe =  "SELECT * FROM detected_images";
+    const sqlINSERTe =  "SELECT iddetected_images, name, CONVERT(detected_imagescol USING utf8) as img FROM detected_images";
     
     db.query(sqlINSERTe, (err,result)=>{
     
         res.send(result)
-        console.log(result)
+        // console.log(result)
         if (err) console.log(err);
     })
     
