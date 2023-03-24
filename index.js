@@ -1,21 +1,16 @@
-const col = ["id","ion_name","valence","ion_symbol","ion_type"]
+import express, { json } from 'express'
+import { createPool } from 'mysql'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import { API_QUERY } from './api_query.js'
+import { API_ROUTS } from './api_routs.js'
 
 const HOST ='localhost'
 const USER ='zbychu'
 const PASSWORD ='password'
 const DATABASE = 'zobaczymy'
-// const ROUTS = require('.routs.js')  
-// console.log(ROUTS)
- 
 
 
-import express, { json } from 'express'
-import { createPool } from 'mysql'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import { routs,test } from './routs.js'
-
-console.log(routs()) 
 
 const db = createPool({    
     host: HOST,
@@ -30,7 +25,160 @@ const numer_portu = 4001
 
 app.use(cors())
 app.use(json())
-// app.use (bodyParser.urlencoded({extended: true})) // zeby cos chodzilo
+app.use (bodyParser.urlencoded({extended: true})) // zeby cos chodzilo
+
+
+
+
+// ###################### ULT_ANALYSIS start ############################
+
+//get all
+app.get(API_ROUTS.ultimate_analysis.get, (req,res)=>{  
+    db.query(API_QUERY.ultimate_analysis.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu ultimate_analysis');})
+    });
+
+// insert image
+app.post(API_ROUTS.ultimate_analysis.post, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const name = req.body.name
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const img1 = req.body.img1
+    const img2 = req.body.img2
+    const img3 = req.body.img3
+    const img4 = req.body.img4
+    const img5 = req.body.img5
+    const img6 = req.body.img6
+    const img7 = req.body.img7
+    const end = req.body.end
+    const SQL_QUERY =  API_QUERY.ultimate_analysis.add;
+    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end], (err,result)=>{
+        if (result) {console.log('INSERT STATUS:',result.serverStatus);res.send(`inserted item - id: ${id}`)}
+        if (err) console.log('prolemos przy post ultimate_analysis')})
+    }); 
+
+
+    // update
+app.put(API_ROUTS.ultimate_analysis.put, (req,res)=>{
+    const id = req.body.id 
+    const name = req.body.name
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const img1 = req.body.img1
+    const img2 = req.body.img2
+    const img3 = req.body.img3
+    const img4 = req.body.img4
+    const img5 = req.body.img5
+    const img6 = req.body.img6
+    const img7 = req.body.img7
+    const end = req.body.end
+    db.query(API_QUERY.ultimate_analysis.put, [name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end,id], (err, result)=>{
+        if (err) console.log(err);
+});
+});
+
+
+
+
+
+
+
+
+app.delete(API_ROUTS.ultimate_analysis.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.ultimate_analysis.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT:',result.serverStatus); res.send(`deleted item - id: ${id}`)}
+    if (err) console.log(err)})
+});
+
+// ###################### ULT_ANALYSIS end ############################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ###################### IMAGES
+
+//get all
+app.get(API_ROUTS.images.get, (req,res)=>{
+    const SQL_QUERY = API_QUERY.images.get;
+    
+    db.query(SQL_QUERY, (err,result)=>{
+            res.send(result)
+            // console.log(result)
+            if (err) console.log(err);})
+    });
+
+// insert image
+app.post(API_ROUTS.images.post, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const img1 = req.body.f1
+    const img2 = req.body.f2
+    const img3 = req.body.f3
+    const img4 = req.body.f4
+    const img5 = req.body.f5
+    const img6 = req.body.f6
+    const img7 = req.body.f7
+    const SQL_QUERY =  API_QUERY.images.add;
+    db.query(SQL_QUERY, [id, img1,img2,img3,img4,img5,img6,img7], (err,result)=>{console.log(err)})
+    });
+
+// update images
+app.put(API_ROUTS.images.put, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const img1 = req.body.f1
+    const img2 = req.body.f2
+    const img3 = req.body.f3
+    const img4 = req.body.f4
+    const img5 = req.body.f5
+    const img6 = req.body.f6
+    const img7 = req.body.f7
+    db.query(API_QUERY.images.put, [img1,img2,img3,img4,img5,img6,img7,id], (err, result)=>{
+        if (err) console.log(err);
+    });
+});
+
+// delete image
+app.delete(API_ROUTS.images.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.images.delete, id, (err, result)=>{
+       if (err) console.log(err);
+    });
+});
+
+// ###################### IMAGES
+
+
+
+
+
 
 app.get("/", (req,res)=>{ //req - require , res - response
     res.send("Serwer testowy działający na porcie:"+numer_portu+"działa!!!");
