@@ -62,12 +62,13 @@ app.post(API_ROUTS.ultimate_analysis.post, (req,res)=>{
     const SQL_QUERY =  API_QUERY.ultimate_analysis.add;
     db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end], (err,result)=>{
         if (result) {console.log('INSERT STATUS:',result.serverStatus);res.send(`inserted item - id: ${id}`)}
-        if (err) console.log('prolemos przy post ultimate_analysis')})
+        if (err) console.log('prolemos przy post ultimate_analysis: ',err.sqlMessage)})
     }); 
 
 
-    // update
-app.put(API_ROUTS.ultimate_analysis.put, (req,res)=>{
+ // update
+ app.put(API_ROUTS.ultimate_analysis.put, (req,res)=>{
+    
     const id = req.body.id 
     const name = req.body.name
     const f1 = req.body.f1
@@ -85,13 +86,32 @@ app.put(API_ROUTS.ultimate_analysis.put, (req,res)=>{
     const img6 = req.body.img6
     const img7 = req.body.img7
     const end = req.body.end
-    db.query(API_QUERY.ultimate_analysis.put, [name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end,id], (err, result)=>{
-        if (err) console.log(err);
+    const LABELS = [name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end]
+    const q = ['name','f1',"f2","f3",'f4','f5','f6','f7','img1','img2','img3','img4','img5','img6','img7','end']
+    const kwysss = Object.keys(req.body)
+    
+    let not_null_array = []
+    let current_set=''
+    const data = req.body
+    LABELS.map((lab,index)=>{
+        if(typeof lab !== 'undefined') {not_null_array.push(lab); current_set=current_set+q[index]+'=?,'}
+    })
+    // console.log('LABELS: ',not_null_array)
+    const ero = current_set.substring(0, current_set.length - 1);
+    not_null_array.push(id)
+    // console.log('not_null_array:=----------------- ',not_null_array)
+    // console.log('current_set--------------------',current_set)
+    // console.log('kwysss--------------------',kwysss)
+    // console.log('id--------------------',id)
+    
+    let CUSTOM_QUERY=`UPDATE ultimate_analysis SET ${ero} WHERE id=?`;
+    console.log('customquery',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY, not_null_array, (err, result)=>{
+        if (result) {console.log('PUT STATUS:',result.serverStatus);res.send(`PUT item - id: ${id}`)}
+        if (err) console.log('error w put',err.sqlMessage);
 });
 });
-
-
-
 
 
 
@@ -101,7 +121,7 @@ app.delete(API_ROUTS.ultimate_analysis.delete, (req,res)=>{
     const id = req.params.id
     db.query(API_QUERY.ultimate_analysis.delete, id, (err, result)=>{
     if (result.serverStatus==2)  {console.log('DELETE_RESULT:',result.serverStatus); res.send(`deleted item - id: ${id}`)}
-    if (err) console.log(err)})
+    if (err) console.log('problem delete ult',err.sqlMessage)})
 });
 
 // ###################### ULT_ANALYSIS end ############################
@@ -109,7 +129,60 @@ app.delete(API_ROUTS.ultimate_analysis.delete, (req,res)=>{
 
 
 
+// _________________________ SHUFFLE start _____________________________________
 
+app.put(API_ROUTS.shuffle.get, (req,res)=>{
+    
+    const phase = req.body.phase
+    let label = req.body.label
+    // const f1 = req.body.f1
+    // const f2 = req.body.f2
+    // const f3 = req.body.f3
+    // const f4 = req.body.f4
+    // const f5 = req.body.f5
+    // const f6 = req.body.f6
+    // const f7 = req.body.f7
+    // const img1 = req.body.img1
+    // const img2 = req.body.img2
+    // const img3 = req.body.img3
+    // const img4 = req.body.img4
+    // const img5 = req.body.img5
+    // const img6 = req.body.img6
+    // const img7 = req.body.img7
+    // const end = req.body.end
+    // const LABELS = [name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end]
+    // const q = ['name','f1',"f2","f3",'f4','f5','f6','f7','img1','img2','img3','img4','img5','img6','img7','end']
+    // const kwysss = Object.keys(req.body)
+    
+    // let not_null_array = []
+    // let current_set=''
+    // const data = req.body
+    // LABELS.map((lab,index)=>{
+    //     if(typeof lab !== 'undefined') {not_null_array.push(lab); current_set=current_set+q[index]+'=?,'}
+    // })
+    // // console.log('LABELS: ',not_null_array)
+    // const ero = current_set.substring(0, current_set.length - 1);
+    // not_null_array.push(id)
+    // // console.log('not_null_array:=----------------- ',not_null_array)
+    // console.log('current_set--------------------',current_set)
+    // console.log('kwysss--------------------',kwysss)
+    // console.log('id--------------------',id)
+    console.log('label = ',label)
+    // if(label == 'brak'){ label = "IS NULL"}
+    // else{label = " = '"+label+"'" }
+
+    let CUSTOM_QUERY=`SELECT * FROM script_flow WHERE ${'f'+phase} = '${label}'`;
+    console.log('------------------------',CUSTOM_QUERY)
+    // console.log('customquery',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY,  (err, result)=>{
+        if (result) {console.log('GET shuffle STATUS:',result.serverStatus);res.send(result)}
+        if (err) console.log('error w shuffle',err.sqlMessage);
+});
+});
+
+
+// _________________________ SHUFFLE end _____________________________________
 
 
 
@@ -307,10 +380,8 @@ app.get("/api/get/script_flow", (req,res)=>{
     const sqlINSERTe =  "SELECT * FROM 	script_flow";
     
     db.query(sqlINSERTe, (err,result)=>{
-    
-        res.send(result)
-        console.log(result)
-        if (err) console.log(err);
+        if(result) { res.send(result);   console.log('DOWNLAOD_script_flow:',result.serverStatus)}
+        if (err) console.log('prolemos przy post get/script_flow: ',err.sqlMessage);
     })
     
 });

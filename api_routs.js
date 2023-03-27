@@ -13,5 +13,8 @@ export const API_ROUTS = {
         "put" : "/api/put/ultimate_analysis",
         "delete" : "/api/delete/ultimate_analysis/:id"
         
+    },
+    "shuffle" : {
+        "get" : "/api/get/shuffle"
     }
 }

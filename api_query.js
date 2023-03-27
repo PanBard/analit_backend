@@ -12,5 +12,8 @@ export const API_QUERY = {
         "put" : "UPDATE ultimate_analysis SET name=?,f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=?,img1=?,img2=?,img3=?,img4=?,img5=?,img6=?,img7=?,end=? WHERE id=?",
         "delete" : "DELETE FROM ultimate_analysis WHERE id=?"
     }
+    // "shuffle" : {
+    //     "get_match" : "S"
+    // }
     
 }
