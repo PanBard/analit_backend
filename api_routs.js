@@ -13,7 +13,8 @@ export const API_ROUTS = {
         "post" : "/api/post/ultimate_analysis",
         "put" : "/api/put/ultimate_analysis",
         "delete" : "/api/delete/ultimate_analysis/:id",
-        "set_end" : "/api/put/ultimate_analysis/set_end"
+        "set_end" : "/api/put/ultimate_analysis/set_end",
+        "set_result" : "/api/put/ultimate_analysis/set_result"
         
     },
 
@@ -27,5 +28,9 @@ export const API_ROUTS = {
         "put" : "/api/put/voice_script",
         "delete" : "/api/delete/voice_script/:id",
         "get_required_script" : "/api/get/required_voice_script"
+    },
+
+    "custom_query" : {
+        "get" : "/api/get/custom_query"
     }
 }

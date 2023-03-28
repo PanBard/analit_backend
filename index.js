@@ -118,8 +118,19 @@ app.put(API_ROUTS.ultimate_analysis.set_end, (req,res)=>{
     const id = req.body.id 
     const end = req.body.end
     db.query(API_QUERY.ultimate_analysis.set_end, [end,id] , (err, result)=>{
-        if (result) {console.log('SET_END STATUS:',result.serverStatus);res.send(`SET_END in item - id: ${id}`)}
+        if (result) {console.log('SET_END STATUS:',result.serverStatus);res.send(`SET_END in analysis - id: ${id}`)}
         if (err) console.log('error w SET_END',err.sqlMessage);
+});
+});
+
+
+// SET_RESULT analysis
+app.put(API_ROUTS.ultimate_analysis.set_result, (req,res)=>{
+    const id = req.body.id 
+    const result = req.body.result
+    db.query(API_QUERY.ultimate_analysis.set_result, [result,id] , (err, result)=>{
+        if (result) {console.log('SET_RESULTSTATUS:',result.serverStatus);res.send(`SET_RESULT in analysis - id: ${id}`)}
+        if (err) console.log('error w SET_RESULT',err.sqlMessage);
 });
 });
 
@@ -244,6 +255,31 @@ app.put(API_ROUTS.voice_script.get_required_script, (req,res)=>{
 
 
 // _______+++++++++++________ voice_script end __________+++++++++++______________
+
+
+// CUSTOM QUERY ------------------- start
+
+app.post(API_ROUTS.custom_query.get, (req,res)=>{  
+    const QUERY = req.body.query
+    db.query(QUERY, (err,result)=>{
+            if (result) {console.log('custom qery STATUS:',result.serverStatus);res.send(result)}
+            if (err) console.log('error at custom query',err.sqlMessage);})
+    });
+
+
+// CUSTOM QUERY ------------------- start
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
