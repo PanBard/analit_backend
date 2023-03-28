@@ -113,7 +113,15 @@ app.post(API_ROUTS.ultimate_analysis.post, (req,res)=>{
 });
 });
 
-
+// SET_END analysis
+app.put(API_ROUTS.ultimate_analysis.set_end, (req,res)=>{
+    const id = req.body.id 
+    const end = req.body.end
+    db.query(API_QUERY.ultimate_analysis.set_end, [end,id] , (err, result)=>{
+        if (result) {console.log('SET_END STATUS:',result.serverStatus);res.send(`SET_END in item - id: ${id}`)}
+        if (err) console.log('error w SET_END',err.sqlMessage);
+});
+});
 
 
 
@@ -123,6 +131,10 @@ app.delete(API_ROUTS.ultimate_analysis.delete, (req,res)=>{
     if (result.serverStatus==2)  {console.log('DELETE_RESULT:',result.serverStatus); res.send(`deleted item - id: ${id}`)}
     if (err) console.log('problem delete ult',err.sqlMessage)})
 });
+
+
+
+
 
 // ###################### ULT_ANALYSIS end ############################
 
@@ -135,45 +147,9 @@ app.put(API_ROUTS.shuffle.get, (req,res)=>{
     
     const phase = req.body.phase
     let label = req.body.label
-    // const f1 = req.body.f1
-    // const f2 = req.body.f2
-    // const f3 = req.body.f3
-    // const f4 = req.body.f4
-    // const f5 = req.body.f5
-    // const f6 = req.body.f6
-    // const f7 = req.body.f7
-    // const img1 = req.body.img1
-    // const img2 = req.body.img2
-    // const img3 = req.body.img3
-    // const img4 = req.body.img4
-    // const img5 = req.body.img5
-    // const img6 = req.body.img6
-    // const img7 = req.body.img7
-    // const end = req.body.end
-    // const LABELS = [name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end]
-    // const q = ['name','f1',"f2","f3",'f4','f5','f6','f7','img1','img2','img3','img4','img5','img6','img7','end']
-    // const kwysss = Object.keys(req.body)
-    
-    // let not_null_array = []
-    // let current_set=''
-    // const data = req.body
-    // LABELS.map((lab,index)=>{
-    //     if(typeof lab !== 'undefined') {not_null_array.push(lab); current_set=current_set+q[index]+'=?,'}
-    // })
-    // // console.log('LABELS: ',not_null_array)
-    // const ero = current_set.substring(0, current_set.length - 1);
-    // not_null_array.push(id)
-    // // console.log('not_null_array:=----------------- ',not_null_array)
-    // console.log('current_set--------------------',current_set)
-    // console.log('kwysss--------------------',kwysss)
-    // console.log('id--------------------',id)
     console.log('label = ',label)
-    // if(label == 'brak'){ label = "IS NULL"}
-    // else{label = " = '"+label+"'" }
-
     let CUSTOM_QUERY=`SELECT * FROM script_flow WHERE ${'f'+phase} = '${label}'`;
     console.log('------------------------',CUSTOM_QUERY)
-    // console.log('customquery',CUSTOM_QUERY)
     
     db.query(CUSTOM_QUERY,  (err, result)=>{
         if (result) {console.log('GET shuffle STATUS:',result.serverStatus);res.send(result)}
@@ -190,6 +166,84 @@ app.put(API_ROUTS.shuffle.get, (req,res)=>{
 
 
 
+
+// _______+++++++++++________ voice_script start __________+++++++++++______________
+
+//get all
+app.get(API_ROUTS.voice_script.get, (req,res)=>{  
+    db.query(API_QUERY.voice_script.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu voice_script',err.sqlMessage);})
+    });
+
+//insert script
+app.post(API_ROUTS.voice_script.post, (req,res)=>{
+    // console.log(req)
+        const id = req.body.id 
+        const phase = req.body.phase 
+        const f1 = req.body.f1
+        const f2 = req.body.f2
+        const f3 = req.body.f3
+        const f4 = req.body.f4
+        const f5 = req.body.f5
+        const f6 = req.body.f6
+        const f7 = req.body.f7
+        const match_id = req.body.match_id
+        const script = req.body.script
+    
+        db.query(API_QUERY.voice_script.add, [id,phase,f1,f2,f3,f4,f5,f6,f7,match_id,script], (err,result)=>{
+            if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted voice_script - id: ${id}`)}
+            if (err) console.log('error przy wysylaniu voice_script',err.sqlMessage)})
+    });
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.voice_script.put, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const phase = req.body.phase 
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const match_id = req.body.match_id
+    const script = req.body.script
+
+    db.query(API_QUERY.voice_script.put, [ phase,f1,f2,f3,f4,f5,f6,f7,match_id,script,id], (err, result)=>{
+        if (result) {console.log('UPDATE (Voice) STATUS:',result.serverStatus);res.send(`updated voice_script - id: ${id}`)}
+        if (err) console.log('error while updating voice_script',err.sqlMessage)
+    });
+});
+
+
+
+app.delete(API_ROUTS.voice_script.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.voice_script.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT_VOICE:',result.serverStatus); res.send(`deleted item from voice_script - id: ${id}`)}
+    if (err) console.log('problem delete voicescript',err.sqlMessage)})
+});
+
+
+//get required script
+app.put(API_ROUTS.voice_script.get_required_script, (req,res)=>{
+    
+    const phase = req.body.phase
+    const match_id = req.body.match_id
+    
+    let CUSTOM_QUERY=`SELECT * FROM voice_script WHERE phase = ${phase} AND match_id LIKE '%,${match_id},%'`;
+    console.log('------------------------',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY,  (err, result)=>{
+        if (result) {console.log('GET required script STATUS:',result.serverStatus);res.send(result)}
+        if (err) console.log('error w required script',err.sqlMessage);
+});
+});
+
+
+// _______+++++++++++________ voice_script end __________+++++++++++______________
 
 
 
