@@ -41,6 +41,16 @@ export const API_ROUTS = {
         
     },
 
+    "anion_analysis" : {
+        "get" : "/api/get/anion_analysis",
+        "post" : "/api/post/anion_analysis",
+        "put" : "/api/put/anion_analysis",
+        "delete" : "/api/delete/anion_analysis/:id",
+        "set_end" : "/api/put/anion_analysis/set_end",
+        "set_result" : "/api/put/anion_analysis/set_result"
+        
+    },
+
     "shuffle" : {
         "get" : "/api/get/shuffle"
     },

@@ -152,6 +152,100 @@ app.delete(API_ROUTS.cation_analysis.delete, (req,res)=>{
 
 // ###################### ULT_ANALYSIS end ############################
 
+// ###################### ANION_ANALYSIS start ############################
+
+// ANION get all
+app.get(API_ROUTS.anion_analysis.get, (req,res)=>{  
+    db.query(API_QUERY.anion_analysis.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu anion analysis',err.sqlMessage);})
+    });
+
+// insert image ANION
+app.post(API_ROUTS.anion_analysis.post, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const name = req.body.name
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const img1 = req.body.img1
+    const img2 = req.body.img2
+    const img3 = req.body.img3
+    const img4 = req.body.img4
+    const end = req.body.end
+    const SQL_QUERY =  API_QUERY.anion_analysis.add;
+    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,img1,img2,img3,img4,end], (err,result)=>{
+        if (result) {console.log('INSERT STATUS:',result.serverStatus);res.send(`inserted item - id: ${id}`)}
+        if (err) console.log('prolemos przy post anion_analysis: ',err.sqlMessage)})
+    }); 
+
+
+ // update ANION
+ app.put(API_ROUTS.anion_analysis.put, (req,res)=>{
+    
+    const id = req.body.id 
+    const name = req.body.name
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const img1 = req.body.img1
+    const img2 = req.body.img2
+    const img3 = req.body.img3
+    const img4 = req.body.img4
+    const end = req.body.end
+    const LABELS = [name,f1,f2,f3,f4,img1,img2,img3,img4,end]
+    const q = ['name','f1',"f2","f3",'f4','img1','img2','img3','img4','end']
+    let not_null_array = []
+    let current_set=''
+    LABELS.map((lab,index)=>{
+        if(typeof lab !== 'undefined') {not_null_array.push(lab); current_set=current_set+q[index]+'=?,'}
+    })
+    const ero = current_set.substring(0, current_set.length - 1);
+    not_null_array.push(id) 
+    let CUSTOM_QUERY=`UPDATE anion_analysis SET ${ero} WHERE id=?`;
+    console.log('customquery',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY, not_null_array, (err, result)=>{
+        if (result) {console.log('PUT STATUS:',result.serverStatus);res.send(`PUT item - id: ${id}`)}
+        if (err) console.log('error w put',err.sqlMessage);
+});
+});
+
+// SET_END analysis ANION
+app.put(API_ROUTS.anion_analysis.set_end, (req,res)=>{
+    const id = req.body.id 
+    const end = req.body.end
+    db.query(API_QUERY.anion_analysis.set_end, [end,id] , (err, result)=>{
+        if (result) {console.log('SET_END STATUS:',result.serverStatus);res.send(`SET_END in anion_analysis - id: ${id}`)}
+        if (err) console.log('error w SET_END',err.sqlMessage);
+});
+});
+
+
+// SET_RESULT analysis ANION
+app.put(API_ROUTS.anion_analysis.set_result, (req,res)=>{
+    const id = req.body.id 
+    const result = req.body.result
+    db.query(API_QUERY.anion_analysis.set_result, [result,id] , (err, result)=>{
+        if (result) {console.log('SET_RESULTSTATUS:',result.serverStatus);res.send(`SET_RESULT anion_analysis - id: ${id}`)}
+        if (err) console.log('error w SET_RESULT',err.sqlMessage);
+});
+});
+
+
+
+app.delete(API_ROUTS.anion_analysis.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.anion_analysis.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT:',result.serverStatus); res.send(`deleted item - id: ${id}`)}
+    if (err) console.log('problem delete ult',err.sqlMessage)})
+});
+
+// ###################### ANION_ANALYSIS end ############################
+
 
 
 
@@ -160,9 +254,10 @@ app.delete(API_ROUTS.cation_analysis.delete, (req,res)=>{
 app.put(API_ROUTS.shuffle.get, (req,res)=>{
     
     const phase = req.body.phase
+    const db_type = req.body.db_type
     let label = req.body.label
     console.log('label = ',label)
-    let CUSTOM_QUERY=`SELECT * FROM script_flow WHERE ${'f'+phase} = '${label}'`;
+    let CUSTOM_QUERY=`SELECT * FROM ${db_type} WHERE ${'f'+phase} = '${label}'`;
     console.log('------------------------',CUSTOM_QUERY)
     
     db.query(CUSTOM_QUERY,  (err, result)=>{

@@ -23,6 +23,15 @@ export const API_QUERY = {
         "set_result" : "UPDATE ultimate_analysis SET result=? WHERE id=?"
     },
 
+    "anion_analysis" : {
+        "get" : "SELECT id,name,f1,f2,f3,f4, CONVERT(img1 USING utf8) as img1, CONVERT(img2 USING utf8) as img2, CONVERT(img3 USING utf8) as img3, CONVERT(img4 USING utf8) as img4, end,result FROM anion_analysis",
+        "add" : "INSERT INTO anion_analysis (id,name,f1,f2,f3,f4,img1,img2,img3,img4,end) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        "put" : "UPDATE ultimate_analysis SET name=?,f1=?,f2=?,f3=?,f4=?,img1=?,img2=?,img3=?,img4=?,end=? WHERE id=?",
+        "delete" : "DELETE FROM anion_analysis WHERE id=?",
+        "set_end" : "UPDATE anion_analysis SET end=? WHERE id=?",
+        "set_result" : "UPDATE anion_analysis SET result=? WHERE id=?"
+    },
+
      "cation_voice_script" : {
         "get" : "SELECT * FROM voice_script",
         "add" : "INSERT INTO voice_script (id,phase,f1,f2,f3,f4,f5,f6,f7,match_id,script) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
