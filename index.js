@@ -457,3 +457,54 @@ app.put(API_ROUTS.anion_voice_script.get_required_script, (req,res)=>{
 
 // _______+++++++++++________ anion voice_script end __________+++++++++++______________
 
+
+
+
+
+
+
+// test images --------------------- start
+
+//get all
+app.get(API_ROUTS.test_images.get, (req,res)=>{  
+    db.query(API_QUERY.test_images.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error during downloadin test img',err.sqlMessage);})
+    });
+
+//insert script
+app.post(API_ROUTS.test_images.post, (req,res)=>{
+    // console.log(req)
+        const id = req.body.id 
+        const label= req.body.label 
+        const img = req.body.img
+    
+        db.query(API_QUERY.test_images.add, [id,img,label], (err,result)=>{
+            if (result) {console.log('INSERT test img STATUS:',result.serverStatus);res.send(`inserted voice_script - id: ${id}`)}
+            if (err) console.log('error przy wysylaniu test img',err.sqlMessage)})
+    });
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.test_images.put, (req,res)=>{
+    // console.log(req)
+    const id = req.body.id 
+    const label= req.body.label 
+    const img = req.body.img
+
+    db.query(API_QUERY.test_images.put, [ img,label,id], (err, result)=>{
+        if (result) {console.log('UPDATE test img STATUS:',result.serverStatus);res.send(`updated voice_script - id: ${id}`)}
+        if (err) console.log('error while updating test img',err.sqlMessage)
+    });
+});
+
+
+
+app.delete(API_ROUTS.test_images.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.test_images.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_test img:',result.serverStatus); res.send(`deleted item from voice_script - id: ${id}`)}
+    if (err) console.log('problem delete test img',err.sqlMessage)})
+});
+
+
+// test images --------------------- end

@@ -48,5 +48,12 @@ export const API_ROUTS = {
   
     "custom_query" : {
         "get" : "/api/get/custom_query"
-    }
+    },
+
+    "test_images" : {
+        "get" : "/api/get/test_images",
+        "post" : "/api/post/test_images",
+        "put" : "/api/put/test_images",
+        "delete" : "/api/delete/test_images/:id",
+},
 }

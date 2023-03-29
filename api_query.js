@@ -37,4 +37,11 @@ export const API_QUERY = {
         "delete" : "DELETE FROM a_voice_script WHERE id=?"
     },
     
+    "test_images" : {
+        "get" : "SELECT id, CONVERT(image USING utf8) as img, label FROM test_images",
+        "add" : "INSERT INTO test_images (id,image,label) VALUES (?,?,?)",
+        "put" : "UPDATE test_images SET image=?,label=? WHERE id=?",
+        "delete" : "DELETE FROM test_images WHERE id=?"
+    },
+
 }
