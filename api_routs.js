@@ -1,20 +1,43 @@
 export const API_ROUTS = {
 
-    "images" : {
-        "get" : "/api/get/images",
-        "post" : "/api/post/images",
-        "put" : "/api/put/images",
-        "delete" : "/api/delete/image/:id"
-        
-    },
+    "cation_script_flow" : {
+        "get" : "/api/get/cation_script_flow",
+        "post" : "/api/post/cation_script_flow",
+        "put" : "/api/put/cation_script_flow",
+        "delete" : "/api/delete/cation_script_flow/:id",
+   },
 
-    "ultimate_analysis" : {
-        "get" : "/api/get/ultimate_analysis",
-        "post" : "/api/post/ultimate_analysis",
-        "put" : "/api/put/ultimate_analysis",
-        "delete" : "/api/delete/ultimate_analysis/:id",
-        "set_end" : "/api/put/ultimate_analysis/set_end",
-        "set_result" : "/api/put/ultimate_analysis/set_result"
+   "anion_script_flow" : {
+        "get" : "/api/get/anion_script_flow",
+        "post" : "/api/post/anion_script_flow",
+        "put" : "/api/put/anion_script_flow",
+        "delete" : "/api/delete/anion_script_flow/:id",
+},
+
+   "cation_voice_script" : {
+        "get" : "/api/get/cation_voice_script",
+        "post" : "/api/post/cation_voice_script",
+        "put" : "/api/put/cation_voice_script",
+        "delete" : "/api/delete/cation_voice_script/:id",
+        "get_required_script" : "/api/get/required_cation_voice_script"
+},
+
+    "anion_voice_script" : {
+        "get" : "/api/get/anion_voice_script",
+        "post" : "/api/post/anion_voice_script",
+        "put" : "/api/put/anion_voice_script",
+        "delete" : "/api/delete/anion_voice_script/:id",
+        "get_required_script" : "/api/get/required_anion_voice_script"
+},
+
+
+    "cation_analysis" : {
+        "get" : "/api/get/cation_analysis",
+        "post" : "/api/post/cation_analysis",
+        "put" : "/api/put/cation_analysis",
+        "delete" : "/api/delete/cation_analysis/:id",
+        "set_end" : "/api/put/cation_analysis/set_end",
+        "set_result" : "/api/put/cation_analysis/set_result"
         
     },
 
@@ -22,14 +45,7 @@ export const API_ROUTS = {
         "get" : "/api/get/shuffle"
     },
 
-    "voice_script" : {
-        "get" : "/api/get/voice_script",
-        "post" : "/api/post/voice_script",
-        "put" : "/api/put/voice_script",
-        "delete" : "/api/delete/voice_script/:id",
-        "get_required_script" : "/api/get/required_voice_script"
-    },
-
+  
     "custom_query" : {
         "get" : "/api/get/custom_query"
     }
