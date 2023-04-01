@@ -292,7 +292,7 @@ app.post(API_ROUTS.custom_query.get, (req,res)=>{
 //get all cation script flow
 app.get(API_ROUTS.cation_script_flow.get, (req,res)=>{
     db.query(API_QUERY.cation_script_flow.get, (err,result)=>{
-        if(result) { res.send(result);   console.log('DOWNLAOD_script_flow:',result.serverStatus)}
+        if(result) { res.send(result);   console.log('DOWNLAOD Cation script flow')}
         if (err) console.log('prolemos przy post get/script_flow: ',err.sqlMessage);
     })
 });
@@ -350,7 +350,7 @@ app.delete(API_ROUTS.cation_script_flow.delete, (req,res)=>{
 //get all anion script flow
 app.get(API_ROUTS.anion_script_flow.get, (req,res)=>{
     db.query(API_QUERY.anion_script_flow.get, (err,result)=>{
-        if(result) { res.send(result);   console.log('DOWNLAOD_anion script_flow:')}
+        if(result) { res.send(result);   console.log('DOWNLAOD anion script flow')}
         if (err) console.log('prolemos przy post get/ anion script_flow: ',err.sqlMessage);
     })
 });
