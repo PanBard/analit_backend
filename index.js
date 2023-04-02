@@ -57,7 +57,6 @@ app.get(API_ROUTS.cation_analysis.get, (req,res)=>{
 
 // insert image
 app.post(API_ROUTS.cation_analysis.post, (req,res)=>{
-    // console.log(req)
     const id = req.body.id 
     const name = req.body.name
     const f1 = req.body.f1
@@ -163,7 +162,6 @@ app.get(API_ROUTS.anion_analysis.get, (req,res)=>{
 
 // insert image ANION
 app.post(API_ROUTS.anion_analysis.post, (req,res)=>{
-    // console.log(req)
     const id = req.body.id 
     const name = req.body.name
     const f1 = req.body.f1
@@ -300,7 +298,6 @@ app.get(API_ROUTS.cation_script_flow.get, (req,res)=>{
 
 //wstawianie cation script flow
 app.post(API_ROUTS.cation_script_flow.post, (req,res)=>{
-    console.log(req)
      const id = req.body.id 
      const symbol = req.body.symbol
      const f1 = req.body.f1
@@ -310,7 +307,10 @@ app.post(API_ROUTS.cation_script_flow.post, (req,res)=>{
      const f5 = req.body.f5
      const f6 = req.body.f6
      const f7 = req.body.f7
-     db.query(API_QUERY.cation_script_flow.add, [id,symbol,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{console.log(err)})
+     db.query(API_QUERY.cation_script_flow.add, [id,symbol,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{
+        if (result)  {console.log('INSERT_CATION:',result.serverStatus); res.send(`inserted item to cation_script - id: ${id}`)}
+        if (err) console.log('problem cation insert',err.sqlMessage) 
+        })
  });
 
 
@@ -326,16 +326,17 @@ app.put(API_ROUTS.cation_script_flow.put, (req,res)=>{
     const f6 = req.body.f6
     const f7 = req.body.f7
     db.query(API_QUERY.cation_script_flow.put, [ symbol,f1,f2,f3,f4,f5,f6,f7,id], (err, result)=>{
-        console.log( symbol,f1,f2,f3,f4,f5,f6,f7,id)
-       if (err) console.log(err);
+        if (result)  {console.log('PUT_CATION:',result.serverStatus); res.send(`updated item from cation_script - id: ${id}`)}
+        if (err) console.log('problem cation put',err.sqlMessage)  
     });
 });
 
 // delete cation script flow
 app.delete(API_ROUTS.cation_script_flow.delete, (req,res)=>{
-    const name = req.params.id
-    db.query(API_QUERY.cation_script_flow.delete, name, (err, result)=>{
-       if (err) console.log(err);
+    const id = req.params.id
+    db.query(API_QUERY.cation_script_flow.delete, id, (err, result)=>{
+        if (result.serverStatus==2)  {console.log('DELETE_RESULT_CAtions script:',result.serverStatus); res.send(`deleted item from voice_script - id: ${id}`)}
+        if (err) console.log('problem delete CAtions script:',err.sqlMessage) 
     });
 });
 
@@ -358,7 +359,6 @@ app.get(API_ROUTS.anion_script_flow.get, (req,res)=>{
 
 //wstawianie anion script flow
 app.post(API_ROUTS.anion_script_flow.post, (req,res)=>{
-    console.log(req)
      const id = req.body.id 
      const symbol = req.body.symbol
      const f1 = req.body.f1
@@ -411,7 +411,6 @@ app.get(API_ROUTS.cation_voice_script.get, (req,res)=>{
 
 //insert script
 app.post(API_ROUTS.cation_voice_script.post, (req,res)=>{
-    // console.log(req)
         const id = req.body.id 
         const phase = req.body.phase 
         const f1 = req.body.f1
@@ -431,7 +430,6 @@ app.post(API_ROUTS.cation_voice_script.post, (req,res)=>{
 
 // aktualizowanie danych w bazie danych
 app.put(API_ROUTS.cation_voice_script.put, (req,res)=>{
-    // console.log(req)
     const id = req.body.id 
     const phase = req.body.phase 
     const f1 = req.body.f1
@@ -496,7 +494,6 @@ app.get(API_ROUTS.anion_voice_script.get, (req,res)=>{
 
 //insert script
 app.post(API_ROUTS.anion_voice_script.post, (req,res)=>{
-    // console.log(req)
         const id = req.body.id 
         const phase = req.body.phase 
         const f6 = req.body.f6
@@ -511,7 +508,6 @@ app.post(API_ROUTS.anion_voice_script.post, (req,res)=>{
 
 // aktualizowanie danych w bazie danych
 app.put(API_ROUTS.anion_voice_script.put, (req,res)=>{
-    // console.log(req)
     const id = req.body.id 
     const phase = req.body.phase 
     const f6 = req.body.f6
@@ -569,7 +565,6 @@ app.get(API_ROUTS.test_images.get, (req,res)=>{
 
 //insert script
 app.post(API_ROUTS.test_images.post, (req,res)=>{
-    // console.log(req)
         const id = req.body.id 
         const label= req.body.label 
         const img = req.body.img
@@ -581,7 +576,6 @@ app.post(API_ROUTS.test_images.post, (req,res)=>{
 
 // aktualizowanie danych w bazie danych
 app.put(API_ROUTS.test_images.put, (req,res)=>{
-    // console.log(req)
     const id = req.body.id 
     const label= req.body.label 
     const img = req.body.img
