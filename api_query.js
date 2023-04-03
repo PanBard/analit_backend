@@ -53,4 +53,18 @@ export const API_QUERY = {
         "delete" : "DELETE FROM test_images WHERE id=?"
     },
 
+    "cation_analysis_texts" : {
+        "get" : "SELECT * FROM 	c_analysis_texts",
+        "add" : "INSERT INTO c_analysis_texts (id,f1,f2,f3,f4,f5,f6,f7) VALUES (?,?,?,?,?,?,?,?)",
+        "put" : "UPDATE c_analysis_texts SET f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=? WHERE id=?",
+        "delete" : "DELETE FROM c_analysis_texts WHERE id=?"
+    },
+
+    "anion_analysis_texts" : {
+        "get" : "SELECT * FROM 	a_analysis_texts",
+        "add" : "INSERT INTO a_analysis_texts (id,f1,f2,f3,f4) VALUES (?,?,?,?,?)",
+        "put" : "UPDATE a_analysis_texts SET f1=?,f2=?,f3=?,f4=? WHERE id=?",
+        "delete" : "DELETE FROM a_analysis_texts WHERE id=?"
+    },
+
 }

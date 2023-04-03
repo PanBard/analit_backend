@@ -554,6 +554,114 @@ app.put(API_ROUTS.anion_voice_script.get_required_script, (req,res)=>{
 
 
 
+
+
+//  Cation TEXT start ////////////////
+
+//get all
+app.get(API_ROUTS.cation_analysis_texts.get, (req,res)=>{  
+    db.query(API_QUERY.cation_analysis_texts.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu cation TEXT',err.sqlMessage);})
+    });
+
+//insert script
+app.post(API_ROUTS.cation_analysis_texts.post, (req,res)=>{
+        const id = req.body.id 
+        const f1 = req.body.f1
+        const f2 = req.body.f2
+        const f3 = req.body.f3
+        const f4 = req.body.f4
+        const f5 = req.body.f5
+        const f6 = req.body.f6
+        const f7 = req.body.f7
+    
+        db.query(API_QUERY.cation_analysis_texts.add, [id,f1,f2,f3,f4,f5,f6,f7], (err,result)=>{
+            if (result) {console.log('INSERT cation TEXT STATUS:',result.serverStatus);res.send(`insertedcation TEXT - id: ${id}`)}
+            if (err) console.log('error przy wysylaniu cation TEXT',err.sqlMessage)})
+    });
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.cation_analysis_texts.put, (req,res)=>{
+
+        const id = req.body.id 
+        const query = req.body.query 
+        const data = req.body.script
+
+    db.query(query, [ data,id], (err, result)=>{
+        if (result) {console.log('UPDATE cation TEXT STATUS:',result.serverStatus);res.send(`updated cation TEXT - id: ${id}`)}
+        if (err) console.log('error while updating cation TEXT',err.sqlMessage)
+    });
+});
+
+
+
+app.delete(API_ROUTS.cation_analysis_texts.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.cation_analysis_texts.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_cation TEXT:',result.serverStatus); res.send(`deleted item from cation TEXT - id: ${id}`)}
+    if (err) console.log('problem delete cation TEXT',err.sqlMessage)})
+});
+
+
+//  Cation TEXT end ////////////////
+
+
+
+
+
+
+//  Anion TEXT start ////////////////
+
+//get all
+app.get(API_ROUTS.anion_analysis_texts.get, (req,res)=>{  
+    db.query(API_QUERY.anion_analysis_texts.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu Anion TEXT',err.sqlMessage);})
+    });
+
+//insert script
+app.post(API_ROUTS.anion_analysis_texts.post, (req,res)=>{
+        const id = req.body.id 
+        const f1 = req.body.f1
+        const f2 = req.body.f2
+        const f3 = req.body.f3
+        const f4 = req.body.f4
+        db.query(API_QUERY.anion_analysis_texts.add, [id,f1,f2,f3,f4], (err,result)=>{
+            if (result) {console.log('INSERT Anion TEXT STATUS:',result.serverStatus);res.send(`inserted Anion TEXT - id: ${id}`)}
+            if (err) console.log('error przy wysylaniu Anion TEXT',err.sqlMessage)})
+    });
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.anion_analysis_texts.put, (req,res)=>{
+        const id = req.body.id 
+        const f1 = req.body.f1
+        const f2 = req.body.f2
+        const f3 = req.body.f3
+        const f4 = req.body.f4
+    db.query(API_QUERY.anion_analysis_texts.put, [ f1,f2,f3,f4,id], (err, result)=>{
+        if (result) {console.log('UPDATE Anion TEXT STATUS:',result.serverStatus);res.send(`updated Anion TEXT - id: ${id}`)}
+        if (err) console.log('error while updating Anion TEXT',err.sqlMessage)
+    });
+});
+
+
+
+app.delete(API_ROUTS.anion_analysis_texts.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.anion_analysis_texts.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_ Anion TEXT:',result.serverStatus); res.send(`deleted item from Anion TEXT - id: ${id}`)}
+    if (err) console.log('problem delete Anion TEXT',err.sqlMessage)})
+});
+
+
+//  Anion TEXT end ////////////////
+
+
+
+
+
+
 // test images --------------------- start
 
 //get all

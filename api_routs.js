@@ -51,6 +51,20 @@ export const API_ROUTS = {
         
     },
 
+    "cation_analysis_texts" : {
+        "get" : "/api/get/cation_analysis_texts",
+        "post" : "/api/post/cation_analysis_texts",
+        "put" : "/api/put/cation_analysis_texts",
+        "delete" : "/api/delete/cation_analysis_texts/:id",
+   },
+
+   "anion_analysis_texts" : {
+        "get" : "/api/get/anion_analysis_texts",
+        "post" : "/api/post/anion_analysis_texts",
+        "put" : "/api/put/anion_analysis_texts",
+        "delete" : "/api/delete/anion_analysis_texts/:id",
+    },
+
     "shuffle" : {
         "get" : "/api/get/shuffle"
     },
