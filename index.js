@@ -23,9 +23,11 @@ const db = createPool({
 const app = express()
 const numer_portu = 4001
 
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(json())
 app.use (bodyParser.urlencoded({extended: true})) // zeby cos chodzilo
+
 
 app.get("/", (req,res)=>{ //req - require , res - response
     res.send("Serwer testowy działający na porcie:"+numer_portu+"działa!!!");
