@@ -707,3 +707,54 @@ app.delete(API_ROUTS.test_images.delete, (req,res)=>{
 
 
 // test images --------------------- end
+
+
+
+
+//  all_chat_messages start ////////////////
+
+//get all
+app.get(API_ROUTS.all_chat_messages.get_all, (req,res)=>{  
+    db.query(API_QUERY.all_chat_messages.get_all, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu all_chat_messages get_all',err.sqlMessage);})
+    });
+
+//get one conversation
+app.get(API_ROUTS.all_chat_messages.get_one_conversation, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.all_chat_messages.get_one_conversation, id, (err, result)=>{
+        res.send(result)
+        if (err) console.log('error przy pobieraniu all_chat_messages get_one_message',err.sqlMessage)})
+});
+
+//insert message
+app.post(API_ROUTS.all_chat_messages.post, (req,res)=>{
+        const chat_id = req.body.chat_id 
+        const message = req.body.message
+        const author = req.body.author
+        const ion = req.body.ion
+        db.query(API_QUERY.all_chat_messages.add, [chat_id,message,ion,author], (err,result)=>{
+            if (result) {console.log('INSERT all_chat_messages STATUS:',result.serverStatus);res.send(`inserted all_chat_messages - id: ${chat_id}`)}
+            if (err) console.log('error przy wysylaniu all_chat_messages ',err.sqlMessage)})
+    });
+
+
+app.delete(API_ROUTS.all_chat_messages.delete, (req,res)=>{
+    const chat_id = req.params.id
+    db.query(API_QUERY.all_chat_messages.delete, chat_id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('all_chat_messages delete:',result.serverStatus); res.send(`deleted item from  all_chat_messages - id: ${chat_id}`)}
+    if (err) console.log('problem delete  all_chat_messages',err.sqlMessage)})
+});
+
+// mark
+app.put(API_ROUTS.all_chat_messages.put, (req,res)=>{
+    const id = req.body.id 
+    const mark= req.body.mark
+
+    db.query(API_QUERY.all_chat_messages.mark_as_read, [ mark,id], (err, result)=>{
+        if (result) {console.log('UPDATE mark STATUS:',result.serverStatus);res.send(`marked message - id: ${id}`)}
+        if (err) console.log('error while marking message',err.sqlMessage)
+    });
+});
+// all_chat_messages end ////////////////

@@ -80,4 +80,12 @@ export const API_ROUTS = {
         "put" : "/api/put/test_images",
         "delete" : "/api/delete/test_images/:id",
 },
+
+"all_chat_messages" : {
+    "get_all" : "/api/get/all_chat_messages",
+    "get_one_conversation" : "/api/get/all_chat_messages/:id",
+    "post" : "/api/post/all_chat_messages",
+    "delete" : "/api/delete/all_chat_messages/:id",
+    "put" : "/api/put/all_chat_messages",
+},
 }

@@ -67,4 +67,12 @@ export const API_QUERY = {
         "delete" : "DELETE FROM a_analysis_texts WHERE id=?"
     },
 
+    "all_chat_messages" : {
+        "get_all" : "SELECT * FROM 	all_chat_messages",
+        "get_one_conversation" : "SELECT * FROM all_chat_messages WHERE chat_id=?",
+        "add" : "INSERT INTO all_chat_messages (chat_id,message,ion,author,date) VALUES (?,?,?,?,now())",
+        "delete" : "DELETE FROM all_chat_messages WHERE id=?",
+        "mark_as_read" : "UPDATE all_chat_messages SET mark=? WHERE id=?",
+    },
+
 }
