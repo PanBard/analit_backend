@@ -75,4 +75,11 @@ export const API_QUERY = {
         "mark_as_read" : "UPDATE all_chat_messages SET mark=? WHERE id=?",
     },
 
+    "image_storage" : {
+        "get" : "SELECT id, CONVERT(img USING utf8) as img, label,date FROM image_storage",
+        "add" : "INSERT INTO image_storage (id,img,label,date) VALUES (?,?,?,now())",
+        "put" : "UPDATE image_storage SET img=?,label=? WHERE id=?",
+        "delete" : "DELETE FROM image_storage WHERE id=?"
+    },
+
 }

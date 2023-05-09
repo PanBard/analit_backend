@@ -758,3 +758,52 @@ app.put(API_ROUTS.all_chat_messages.put, (req,res)=>{
     });
 });
 // all_chat_messages end ////////////////
+
+
+
+
+
+
+// image_storage  --------------------- start
+
+//get all
+app.get(API_ROUTS.image_storage.get, (req,res)=>{  
+    db.query(API_QUERY.image_storage.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error during downloading image_storage ',err.sqlMessage);})
+    });
+
+//insert script
+app.post(API_ROUTS.image_storage.post, (req,res)=>{
+        const id = req.body.id 
+        const label= req.body.label 
+        const img = req.body.img
+    
+        db.query(API_QUERY.image_storage.add, [id,img,label], (err,result)=>{
+            if (result) {console.log('INSERT img to image_storage STATUS:',result.serverStatus);res.send(`inserted img to image_storage - id: ${id}`)}
+            if (err) console.log('error while INSERT img to image_storage ',err.sqlMessage)})
+    });
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.image_storage.put, (req,res)=>{
+    const id = req.body.id 
+    const label= req.body.label 
+    const img = req.body.img
+
+    db.query(API_QUERY.image_storage.put, [ img,label,id], (err, result)=>{
+        if (result) {console.log('UPDATE img to image_storage STATUS:',result.serverStatus);res.send(`updated img to image_storage - id: ${id}`)}
+        if (err) console.log('error while updating img in image_storage',err.sqlMessage)
+    });
+});
+
+
+
+app.delete(API_ROUTS.image_storage.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.image_storage.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE image_storage STATUS:',result.serverStatus); res.send(`deleted item from image_storage - id: ${id}`)}
+    if (err) console.log('problem while delete test img from image_storage',err.sqlMessage)})
+});
+
+
+//  image_storage --------------------- end
