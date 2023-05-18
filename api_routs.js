@@ -95,4 +95,16 @@ export const API_ROUTS = {
     "put" : "/api/put/image_storage",
     "delete" : "/api/delete/image_storage/:id",
 },
+
+"account_credentials" : {
+    "get" : "/api/get/account_credentials",
+    "post" : "/api/post/account_credentials",
+    "put" : "/api/put/account_credentials",
+    "delete" : "/api/delete/account_credentials/:id",
+}
+
+
+
+
+
 }

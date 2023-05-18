@@ -82,4 +82,11 @@ export const API_QUERY = {
         "delete" : "DELETE FROM image_storage WHERE id=?"
     },
 
+    "account_credentials" : {
+        "get_all" : "SELECT * FROM 	account_credentials",
+        "add" : "INSERT INTO account_credentials (chat_id,message,ion,author,date) VALUES (?,?,?,?,now())",
+        "delete" : "DELETE FROM account_credentials WHERE id=?",
+        "mark_as_read" : "UPDATE account_credentials SET mark=? WHERE id=?",
+    }
+
 }

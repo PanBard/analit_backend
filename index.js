@@ -807,3 +807,17 @@ app.delete(API_ROUTS.image_storage.delete, (req,res)=>{
 
 
 //  image_storage --------------------- end
+
+
+// account_credentials -------------------------- start
+
+
+//get all
+app.get(API_ROUTS.account_credentials.get , (req,res)=>{  
+    db.query(API_QUERY.account_credentials.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error during downloading account_credentials ',err.sqlMessage);})
+    });
+
+
+// account_credentials -------------------------- end
