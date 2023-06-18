@@ -31,38 +31,38 @@ export const API_ROUTS = {
 },
 
 
-    "cation_analysis" : {
-        "get" : "/api/get/cation_analysis",
-        "post" : "/api/post/cation_analysis",
-        "put" : "/api/put/cation_analysis",
-        "delete" : "/api/delete/cation_analysis/:id",
-        "set_end" : "/api/put/cation_analysis/set_end",
-        "set_result" : "/api/put/cation_analysis/set_result"
+    "cation_analysis_result" : {
+        "get" : "/api/get/cation_analysis_result",
+        "post" : "/api/post/cation_analysis_result",
+        "put" : "/api/put/cation_analysis_result",
+        "delete" : "/api/delete/cation_analysis_result/:id",
+        "set_end" : "/api/put/cation_analysis_result/set_end",
+        "set_result" : "/api/put/cation_analysis_result/set_result"
         
     },
 
-    "anion_analysis" : {
-        "get" : "/api/get/anion_analysis",
-        "post" : "/api/post/anion_analysis",
-        "put" : "/api/put/anion_analysis",
-        "delete" : "/api/delete/anion_analysis/:id",
-        "set_end" : "/api/put/anion_analysis/set_end",
-        "set_result" : "/api/put/anion_analysis/set_result"
+    "anion_analysis_result" : {
+        "get" : "/api/get/anion_analysis_result",
+        "post" : "/api/post/anion_analysis_result",
+        "put" : "/api/put/anion_analysis_result",
+        "delete" : "/api/delete/anion_analysis_result/:id",
+        "set_end" : "/api/put/anion_analysis_result/set_end",
+        "set_result" : "/api/put/anion_analysis_result/set_result"
         
     },
 
-    "cation_analysis_texts" : {
-        "get" : "/api/get/cation_analysis_texts",
-        "post" : "/api/post/cation_analysis_texts",
-        "put" : "/api/put/cation_analysis_texts",
-        "delete" : "/api/delete/cation_analysis_texts/:id",
+    "cation_analysis_result_texts" : {
+        "get" : "/api/get/cation_analysis_result_texts",
+        "post" : "/api/post/cation_analysis_result_texts",
+        "put" : "/api/put/cation_analysis_result_texts",
+        "delete" : "/api/delete/cation_analysis_result_texts/:id",
    },
 
-   "anion_analysis_texts" : {
-        "get" : "/api/get/anion_analysis_texts",
-        "post" : "/api/post/anion_analysis_texts",
-        "put" : "/api/put/anion_analysis_texts",
-        "delete" : "/api/delete/anion_analysis_texts/:id",
+   "anion_analysis_result_texts" : {
+        "get" : "/api/get/anion_analysis_result_texts",
+        "post" : "/api/post/anion_analysis_result_texts",
+        "put" : "/api/put/anion_analysis_result_texts",
+        "delete" : "/api/delete/anion_analysis_result_texts/:id",
     },
 
     "shuffle" : {
@@ -81,12 +81,12 @@ export const API_ROUTS = {
         "delete" : "/api/delete/test_images/:id",
 },
 
-"all_chat_messages" : {
-    "get_all" : "/api/get/all_chat_messages",
-    "get_one_conversation" : "/api/get/all_chat_messages/:id",
-    "post" : "/api/post/all_chat_messages",
-    "delete" : "/api/delete/all_chat_messages/:id",
-    "put" : "/api/put/all_chat_messages",
+"chat_messages" : {
+    "get_all" : "/api/get/chat_messages",
+    "get_one_conversation" : "/api/get/chat_messages/:id",
+    "post" : "/api/post/chat_messages",
+    "delete" : "/api/delete/chat_messages/:id",
+    "put" : "/api/put/chat_messages",
 },
 
 "image_storage" : {
