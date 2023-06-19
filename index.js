@@ -411,6 +411,14 @@ app.get(API_ROUTS.cation_voice_script.get, (req,res)=>{
             if (err) console.log('error przy pobieraniu cation_voice_script',err.sqlMessage);})
     });
 
+
+    //get all
+app.get(API_ROUTS.cation_voice_script_en.get, (req,res)=>{  
+    db.query(API_QUERY.cation_voice_script_en.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu cation_voice_script_en',err.sqlMessage);})
+    });
+
 //insert script
 app.post(API_ROUTS.cation_voice_script.post, (req,res)=>{
         const id = req.body.id 
@@ -429,6 +437,25 @@ app.post(API_ROUTS.cation_voice_script.post, (req,res)=>{
             if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted cation_voice_script - id: ${id}`)}
             if (err) console.log('error przy wysylaniu cation_voice_script',err.sqlMessage)})
     });
+
+    //insert script
+app.post(API_ROUTS.cation_voice_script_en.post, (req,res)=>{
+    const id = req.body.id 
+    const phase = req.body.phase 
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const match_id = req.body.match_id
+    const script = req.body.script
+
+    db.query(API_QUERY.cation_voice_script_en.add, [id,phase,f1,f2,f3,f4,f5,f6,f7,match_id,script], (err,result)=>{
+        if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted cation_voice_script_en - id: ${id}`)}
+        if (err) console.log('error przy wysylaniu cation_voice_script_en',err.sqlMessage)})
+});
 
 // aktualizowanie danych w bazie danych
 app.put(API_ROUTS.cation_voice_script.put, (req,res)=>{
@@ -450,7 +477,25 @@ app.put(API_ROUTS.cation_voice_script.put, (req,res)=>{
     });
 });
 
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.cation_voice_script_en.put, (req,res)=>{
+    const id = req.body.id 
+    const phase = req.body.phase 
+    const f1 = req.body.f1
+    const f2 = req.body.f2
+    const f3 = req.body.f3
+    const f4 = req.body.f4
+    const f5 = req.body.f5
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const match_id = req.body.match_id
+    const script = req.body.script
 
+    db.query(API_QUERY.cation_voice_script_en.put, [ phase,f1,f2,f3,f4,f5,f6,f7,match_id,script,id], (err, result)=>{
+        if (result) {console.log('UPDATE (Voice) STATUS:',result.serverStatus);res.send(`updated cation_voice_script_en - id: ${id}`)}
+        if (err) console.log('error while updating cation_voice_script_en',err.sqlMessage)
+    });
+});
 
 app.delete(API_ROUTS.cation_voice_script.delete, (req,res)=>{
     const id = req.params.id
@@ -459,6 +504,12 @@ app.delete(API_ROUTS.cation_voice_script.delete, (req,res)=>{
     if (err) console.log('problem delete voicescript',err.sqlMessage)})
 });
 
+app.delete(API_ROUTS.cation_voice_script_en.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.cation_voice_script_en.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT_VOICE:',result.serverStatus); res.send(`deleted item from cation_voice_script_en - id: ${id}`)}
+    if (err) console.log('problem delete cation_voice_script_en',err.sqlMessage)})
+});
 
 //get required script
 app.put(API_ROUTS.cation_voice_script.get_required_script, (req,res)=>{
@@ -467,6 +518,21 @@ app.put(API_ROUTS.cation_voice_script.get_required_script, (req,res)=>{
     const match_id = req.body.match_id
     
     let CUSTOM_QUERY=`SELECT * FROM cation_voice_script WHERE phase = ${phase} AND match_id LIKE '%,${match_id},%'`;
+    console.log('------------------------',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY,  (err, result)=>{
+        if (result) {console.log('GET required script STATUS:',result.serverStatus);res.send(result)}
+        if (err) console.log('error w required script',err.sqlMessage);
+});
+});
+
+//get required script
+app.put(API_ROUTS.cation_voice_script_en.get_required_script, (req,res)=>{
+    
+    const phase = req.body.phase
+    const match_id = req.body.match_id
+    
+    let CUSTOM_QUERY=`SELECT * FROM cation_voice_script_en WHERE phase = ${phase} AND match_id LIKE '%,${match_id},%'`;
     console.log('------------------------',CUSTOM_QUERY)
     
     db.query(CUSTOM_QUERY,  (err, result)=>{
@@ -485,13 +551,20 @@ app.put(API_ROUTS.cation_voice_script.get_required_script, (req,res)=>{
 
 
 
-// _______+++++++++++________ anion cation_voice_script start __________+++++++++++______________
+// _______+++++++++++________ anion anion_voice_script start __________+++++++++++______________
 
 //get all
 app.get(API_ROUTS.anion_voice_script.get, (req,res)=>{  
     db.query(API_QUERY.anion_voice_script.get, (err,result)=>{
             res.send(result)
-            if (err) console.log('error przy pobieraniu cation_voice_script',err.sqlMessage);})
+            if (err) console.log('error przy pobieraniu anion_voice_script',err.sqlMessage);})
+    });
+
+    //get all
+app.get(API_ROUTS.anion_voice_script_en.get, (req,res)=>{  
+    db.query(API_QUERY.anion_voice_script_en.get, (err,result)=>{
+            res.send(result)
+            if (err) console.log('error przy pobieraniu anion_voice_script_en',err.sqlMessage);})
     });
 
 //insert script
@@ -504,9 +577,23 @@ app.post(API_ROUTS.anion_voice_script.post, (req,res)=>{
         const script = req.body.script
     
         db.query(API_QUERY.anion_voice_script.add, [id,phase,f6,f7,match_id,script], (err,result)=>{
-            if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted cation_voice_script - id: ${id}`)}
-            if (err) console.log('error przy wysylaniu cation_voice_script',err.sqlMessage)})
+            if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted anion_voice_script - id: ${id}`)}
+            if (err) console.log('error przy wysylaniu anion_voice_script',err.sqlMessage)})
     });
+
+    //insert script
+app.post(API_ROUTS.anion_voice_script_en.post, (req,res)=>{
+    const id = req.body.id 
+    const phase = req.body.phase 
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const match_id = req.body.match_id
+    const script = req.body.script
+
+    db.query(API_QUERY.anion_voice_script_en.add, [id,phase,f6,f7,match_id,script], (err,result)=>{
+        if (result) {console.log('INSERT (Voice) STATUS:',result.serverStatus);res.send(`inserted anion_voice_script_en - id: ${id}`)}
+        if (err) console.log('error przy wysylaniu anion_voice_script_en',err.sqlMessage)})
+});
 
 // aktualizowanie danych w bazie danych
 app.put(API_ROUTS.anion_voice_script.put, (req,res)=>{
@@ -518,8 +605,23 @@ app.put(API_ROUTS.anion_voice_script.put, (req,res)=>{
     const script = req.body.script
 
     db.query(API_QUERY.anion_voice_script.put, [ phase,f6,f7,match_id,script,id], (err, result)=>{
-        if (result) {console.log('UPDATE (Voice) STATUS:',result.serverStatus);res.send(`updated cation_voice_script - id: ${id}`)}
-        if (err) console.log('error while updating cation_voice_script',err.sqlMessage)
+        if (result) {console.log('UPDATE (Voice) STATUS:',result.serverStatus);res.send(`updated anion_voice_script - id: ${id}`)}
+        if (err) console.log('error while updating anion_voice_script',err.sqlMessage)
+    });
+});
+
+// aktualizowanie danych w bazie danych
+app.put(API_ROUTS.anion_voice_script_en.put, (req,res)=>{
+    const id = req.body.id 
+    const phase = req.body.phase 
+    const f6 = req.body.f6
+    const f7 = req.body.f7
+    const match_id = req.body.match_id
+    const script = req.body.script
+
+    db.query(API_QUERY.anion_voice_script_en.put, [ phase,f6,f7,match_id,script,id], (err, result)=>{
+        if (result) {console.log('UPDATE (Voice) STATUS:',result.serverStatus);res.send(`updated anion_voice_script - id: ${id}`)}
+        if (err) console.log('error while updating anion_voice_script_en',err.sqlMessage)
     });
 });
 
@@ -528,8 +630,15 @@ app.put(API_ROUTS.anion_voice_script.put, (req,res)=>{
 app.delete(API_ROUTS.anion_voice_script.delete, (req,res)=>{
     const id = req.params.id
     db.query(API_QUERY.anion_voice_script.delete, id, (err, result)=>{
-    if (result.serverStatus==2)  {console.log('DELETE_RESULT_VOICE:',result.serverStatus); res.send(`deleted item from cation_voice_script - id: ${id}`)}
-    if (err) console.log('problem delete voicescript',err.sqlMessage)})
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT_VOICE:',result.serverStatus); res.send(`deleted item from anion_voice_script - id: ${id}`)}
+    if (err) console.log('problem delete anion_voice_script',err.sqlMessage)})
+});
+
+app.delete(API_ROUTS.anion_voice_script_en.delete, (req,res)=>{
+    const id = req.params.id
+    db.query(API_QUERY.anion_voice_script_en.delete, id, (err, result)=>{
+    if (result.serverStatus==2)  {console.log('DELETE_RESULT_VOICE:',result.serverStatus); res.send(`deleted item from anion_voice_script_en - id: ${id}`)}
+    if (err) console.log('problem delete anion_voice_script_en',err.sqlMessage)})
 });
 
 
@@ -548,7 +657,22 @@ app.put(API_ROUTS.anion_voice_script.get_required_script, (req,res)=>{
 });
 });
 
-// _______+++++++++++________ anion cation_voice_script end __________+++++++++++______________
+//get required script
+app.put(API_ROUTS.anion_voice_script_en.get_required_script, (req,res)=>{
+    
+    const phase = req.body.phase
+    const match_id = req.body.match_id
+    
+    let CUSTOM_QUERY=`SELECT * FROM anion_voice_script_en WHERE phase = ${phase} AND match_id LIKE '%,${match_id},%'`;
+    console.log('------------------------',CUSTOM_QUERY)
+    
+    db.query(CUSTOM_QUERY,  (err, result)=>{
+        if (result) {console.log('GET required script STATUS:',result.serverStatus);res.send(result)}
+        if (err) console.log('error w required script',err.sqlMessage);
+});
+});
+
+// _______+++++++++++________ anion anion_voice_script end __________+++++++++++______________
 
 
 
@@ -592,7 +716,7 @@ app.put(API_ROUTS.cation_analysis_result_texts.put, (req,res)=>{
 
     db.query(query, [ data,id], (err, result)=>{
         if (result) {console.log('UPDATE cation TEXT STATUS:',result.serverStatus);res.send(`updated cation TEXT - id: ${id}`)}
-        if (err) console.log('error while updating cation TEXT',err.sqlMessage)
+        if (err) console.log('error while updating cation_analysis_result_texts ',err.sqlMessage)
     });
 });
 

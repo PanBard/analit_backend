@@ -39,11 +39,25 @@ export const API_QUERY = {
         "delete" : "DELETE FROM cation_voice_script WHERE id=?"
     },
 
+    "cation_voice_script_en" : {
+        "get" : "SELECT * FROM cation_voice_script_en",
+        "add" : "INSERT INTO cation_voice_script_en (id,phase,f1,f2,f3,f4,f5,f6,f7,match_id,script) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        "put" : "UPDATE cation_voice_script_en SET phase=?,f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=?,match_id=?,script=? WHERE id=?",
+        "delete" : "DELETE FROM cation_voice_script_en WHERE id=?"
+    },
+
     "anion_voice_script" : {
         "get" : "SELECT * FROM anion_voice_script",
         "add" : "INSERT INTO anion_voice_script (id,phase,f6,f7,match_id,script) VALUES (?,?,?,?,?,?)",
         "put" : "UPDATE anion_voice_script SET phase=?,f6=?,f7=?,match_id=?,script=? WHERE id=?",
         "delete" : "DELETE FROM anion_voice_script WHERE id=?"
+    },
+
+    "anion_voice_script_en" : {
+        "get" : "SELECT * FROM anion_voice_script_en",
+        "add" : "INSERT INTO anion_voice_script_en (id,phase,f6,f7,match_id,script) VALUES (?,?,?,?,?,?)",
+        "put" : "UPDATE anion_voice_script_en SET phase=?,f6=?,f7=?,match_id=?,script=? WHERE id=?",
+        "delete" : "DELETE FROM anion_voice_script_en WHERE id=?"
     },
     
     "test_images" : {

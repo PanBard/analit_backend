@@ -22,12 +22,28 @@ export const API_ROUTS = {
         "get_required_script" : "/api/get/required_cation_voice_script"
 },
 
+"cation_voice_script_en" : {
+    "get" : "/api/get/cation_voice_script_en",
+    "post" : "/api/post/cation_voice_script_en",
+    "put" : "/api/put/cation_voice_script_en",
+    "delete" : "/api/delete/cation_voice_script_en/:id",
+    "get_required_script" : "/api/get/required_cation_voice_script_en"
+},
+
     "anion_voice_script" : {
         "get" : "/api/get/anion_voice_script",
         "post" : "/api/post/anion_voice_script",
         "put" : "/api/put/anion_voice_script",
         "delete" : "/api/delete/anion_voice_script/:id",
         "get_required_script" : "/api/get/required_anion_voice_script"
+},
+
+"anion_voice_script_en" : {
+    "get" : "/api/get/anion_voice_script_en",
+    "post" : "/api/post/anion_voice_script_en",
+    "put" : "/api/put/anion_voice_script_en",
+    "delete" : "/api/delete/anion_voice_script_en/:id",
+    "get_required_script" : "/api/get/required_anion_voice_script_en"
 },
 
 
