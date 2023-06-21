@@ -76,8 +76,9 @@ app.post(API_ROUTS.cation_analysis_result.post, (req,res)=>{
     const img6 = req.body.img6
     const img7 = req.body.img7
     const end = req.body.end
+    const user_id = req.body.user_id
     const SQL_QUERY =  API_QUERY.cation_analysis_result.add;
-    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end], (err,result)=>{
+    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end,user_id], (err,result)=>{
         if (result) {console.log('INSERT STATUS:',result.serverStatus);res.send(`inserted item - id: ${id}`)}
         if (err) console.log('prolemos przy post cation_analysis_result: ',err.sqlMessage)})
     }); 
@@ -175,8 +176,9 @@ app.post(API_ROUTS.anion_analysis_result.post, (req,res)=>{
     const img3 = req.body.img3
     const img4 = req.body.img4
     const end = req.body.end
+    const user_id = req.body.user_id
     const SQL_QUERY =  API_QUERY.anion_analysis_result.add;
-    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,img1,img2,img3,img4,end], (err,result)=>{
+    db.query(SQL_QUERY, [id,name,f1,f2,f3,f4,img1,img2,img3,img4,end, user_id], (err,result)=>{
         if (result) {console.log('INSERT STATUS:',result.serverStatus);res.send(`inserted item - id: ${id}`)}
         if (err) console.log('prolemos przy post anion_analysis_result: ',err.sqlMessage)})
     }); 

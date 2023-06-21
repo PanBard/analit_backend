@@ -15,8 +15,8 @@ export const API_QUERY = {
     },
 
     "cation_analysis_result" : {
-        "get" : "SELECT id,name,f1,f2,f3,f4,f5,f6,f7, CONVERT(img1 USING utf8) as img1, CONVERT(img2 USING utf8) as img2, CONVERT(img3 USING utf8) as img3, CONVERT(img4 USING utf8) as img4, CONVERT(img5 USING utf8) as img5, CONVERT(img6 USING utf8) as img6, CONVERT(img7 USING utf8) as img7, end,result FROM cation_analysis_result",
-        "add" : "INSERT INTO cation_analysis_result (id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "get" : "SELECT id,name,f1,f2,f3,f4,f5,f6,f7, CONVERT(img1 USING utf8) as img1, CONVERT(img2 USING utf8) as img2, CONVERT(img3 USING utf8) as img3, CONVERT(img4 USING utf8) as img4, CONVERT(img5 USING utf8) as img5, CONVERT(img6 USING utf8) as img6, CONVERT(img7 USING utf8) as img7, end,result,user_id FROM cation_analysis_result",
+        "add" : "INSERT INTO cation_analysis_result  (id,name,f1,f2,f3,f4,f5,f6,f7,img1,img2,img3,img4,img5,img6,img7,end,user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         "put" : "UPDATE cation_analysis_result SET name=?,f1=?,f2=?,f3=?,f4=?,f5=?,f6=?,f7=?,img1=?,img2=?,img3=?,img4=?,img5=?,img6=?,img7=?,end=? WHERE id=?",
         "delete" : "DELETE FROM cation_analysis_result WHERE id=?",
         "set_end" : "UPDATE cation_analysis_result SET end=? WHERE id=?",
@@ -24,8 +24,8 @@ export const API_QUERY = {
     },
 
     "anion_analysis_result" : {
-        "get" : "SELECT id,name,f1,f2,f3,f4, CONVERT(img1 USING utf8) as img1, CONVERT(img2 USING utf8) as img2, CONVERT(img3 USING utf8) as img3, CONVERT(img4 USING utf8) as img4, end,result FROM anion_analysis_result",
-        "add" : "INSERT INTO anion_analysis_result (id,name,f1,f2,f3,f4,img1,img2,img3,img4,end) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        "get" : "SELECT id,name,f1,f2,f3,f4, CONVERT(img1 USING utf8) as img1, CONVERT(img2 USING utf8) as img2, CONVERT(img3 USING utf8) as img3, CONVERT(img4 USING utf8) as img4, end,result,user_id FROM anion_analysis_result",
+        "add" : "INSERT INTO anion_analysis_result (id,name,f1,f2,f3,f4,img1,img2,img3,img4,end,user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
         "put" : "UPDATE cation_analysis_result SET name=?,f1=?,f2=?,f3=?,f4=?,img1=?,img2=?,img3=?,img4=?,end=? WHERE id=?",
         "delete" : "DELETE FROM anion_analysis_result WHERE id=?",
         "set_end" : "UPDATE anion_analysis_result SET end=? WHERE id=?",
